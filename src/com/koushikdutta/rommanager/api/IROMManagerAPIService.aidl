@@ -4,6 +4,8 @@ import com.koushikdutta.rommanager.api.IClockworkRecoveryScriptBuilder;
 
 interface IROMManagerAPIService {
 	boolean isPremium();
-	IClockworkRecoveryScriptBuilder createClockworkRecoveryScriptBuilder();
 	void installZip(String path);
+
+	// will return null if not premium
+	IClockworkRecoveryScriptBuilder createClockworkRecoveryScriptBuilder();
 }
