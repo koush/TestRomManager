@@ -43,6 +43,9 @@ public class TestRomManagerActivity extends Activity {
 
         setContentView(R.layout.main);
 
+        // perform a nandroid backup.
+        // you could also modify this to install a zip before/after the backup easily. Try it!
+        // createClockworkRecoveryScriptBuilder requires ROM Manager premium.
         Button backup = (Button)findViewById(R.id.backup);
         backup.setOnClickListener(new OnClickListener() {
             @Override
@@ -63,6 +66,7 @@ public class TestRomManagerActivity extends Activity {
             }
         });
 
+        // install a single zip. You could use this to do an OTA update.
         Button zip = (Button)findViewById(R.id.installzip);
         zip.setOnClickListener(new OnClickListener() {
             @Override
