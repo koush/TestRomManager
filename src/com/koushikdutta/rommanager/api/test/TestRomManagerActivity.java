@@ -24,17 +24,23 @@ public class TestRomManagerActivity extends Activity {
 
         // connect to rom manager. this should ideally be done only when necessary.
         Intent i = new Intent("com.koushikdutta.rommanager.api.BIND");
-        bindService(i, new ServiceConnection() {
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-            }
+        try {
+            bindService(i, new ServiceConnection() {
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                }
 
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                mService = IROMManagerAPIService.Stub.asInterface(service);
-            }
-        }, Service.BIND_AUTO_CREATE);
-        
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    mService = IROMManagerAPIService.Stub.asInterface(service);
+                }
+            }, Service.BIND_AUTO_CREATE);
+        }
+        catch (Exception ex) {
+            // connecting to rom manager failed, is it installed and 4.5.0.0+?
+            ex.printStackTrace();
+        }
+
         setContentView(R.layout.main);
 
         Button backup = (Button)findViewById(R.id.backup);
@@ -42,7 +48,7 @@ public class TestRomManagerActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (mService == null) {
-                    // a proper ROM Manager version is not installed or is broken...
+                    // no rom manager connection available
                     return;
                 }
                 try {
@@ -62,7 +68,7 @@ public class TestRomManagerActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (mService == null) {
-                    // a proper ROM Manager version is not installed or is broken...
+                    // connecting to rom manager failed, is it installed and 4.5.0.0+?
                     return;
                 }
                 try {
