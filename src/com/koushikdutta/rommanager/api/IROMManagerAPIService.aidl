@@ -8,4 +8,7 @@ interface IROMManagerAPIService {
 
 	// will return null if not premium
 	IClockworkRecoveryScriptBuilder createClockworkRecoveryScriptBuilder();
+	
+	void rebootRecovery();
+	String getClockworkModRecoveryVersion();
 }

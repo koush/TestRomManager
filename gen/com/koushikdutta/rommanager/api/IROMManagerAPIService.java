@@ -67,6 +67,21 @@ reply.writeNoException();
 reply.writeStrongBinder((((_result!=null))?(_result.asBinder()):(null)));
 return true;
 }
+case TRANSACTION_rebootRecovery:
+{
+data.enforceInterface(DESCRIPTOR);
+this.rebootRecovery();
+reply.writeNoException();
+return true;
+}
+case TRANSACTION_getClockworkModRecoveryVersion:
+{
+data.enforceInterface(DESCRIPTOR);
+java.lang.String _result = this.getClockworkModRecoveryVersion();
+reply.writeNoException();
+reply.writeString(_result);
+return true;
+}
 }
 return super.onTransact(code, data, reply, flags);
 }
@@ -136,14 +151,49 @@ _data.recycle();
 }
 return _result;
 }
+public void rebootRecovery() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_rebootRecovery, _data, _reply, 0);
+_reply.readException();
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+}
+public java.lang.String getClockworkModRecoveryVersion() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+java.lang.String _result;
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_getClockworkModRecoveryVersion, _data, _reply, 0);
+_reply.readException();
+_result = _reply.readString();
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+return _result;
+}
 }
 static final int TRANSACTION_isPremium = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 static final int TRANSACTION_installZip = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
 static final int TRANSACTION_createClockworkRecoveryScriptBuilder = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+static final int TRANSACTION_rebootRecovery = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+static final int TRANSACTION_getClockworkModRecoveryVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
 }
 public boolean isPremium() throws android.os.RemoteException;
 public void installZip(java.lang.String path) throws android.os.RemoteException;
 // will return null if not premium
 
 public com.koushikdutta.rommanager.api.IClockworkRecoveryScriptBuilder createClockworkRecoveryScriptBuilder() throws android.os.RemoteException;
+public void rebootRecovery() throws android.os.RemoteException;
+public java.lang.String getClockworkModRecoveryVersion() throws android.os.RemoteException;
 }
